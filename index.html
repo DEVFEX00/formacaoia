@@ -1,0 +1,212 @@
+﻿<!doctype html>
+<html lang="pt-BR" data-tone="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Capacitação em Inteligência Artificial · Faculdade FEX Educação</title>
+  <meta name="description" content="Torne-se um especialista em inteligência artificial. Capacitação profissional para empreendedores, diretores e executivos — 10 mini módulos, 38 aulas, 25+ ferramentas e atualização semanal.">
+  <meta name="theme-color" content="#0c0806">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="preload" as="image" href="/brand/fex-logo.png">
+  <link rel="stylesheet" href="src/styles/base.css">
+  <link rel="stylesheet" href="src/styles/sections.css">
+  <script>document.documentElement.classList.add('js')</script>
+  <script type="module" src="src/main.js"></script>
+</head>
+<body>
+  <canvas class="fx" aria-hidden="true"></canvas>
+
+  <!-- ——— header ——— -->
+  <header class="top">
+    <a class="top__brand" href="#hero" aria-label="Faculdade FEX Educação — início">
+      <img class="top__logo top__logo--light" src="/brand/fex-logo.png" alt="" width="1156" height="216">
+      <img class="top__logo top__logo--dark" src="/brand/fex-logo-black.png" alt="" width="1570" height="274">
+    </a>
+    <nav class="top__nav" aria-label="Seções">
+      <a href="#tese">A tese</a><a href="#ferramentas">Ferramentas</a><a href="#grade">Grade</a><a href="#atualizacao">Atualização</a>
+    </nav>
+    <button class="top__sound" type="button" aria-pressed="false" aria-label="Ligar som"><i></i><i></i><i></i><i></i><span>Som</span></button>
+    <a class="btn btn--pill top__cta" href="#conversao"><span class="roll" data-roll>Quero conhecer</span><i class="dot"></i></a>
+    <div class="top__progress"><i></i></div>
+  </header>
+
+  <main>
+    <!-- 01 · HERO — logo de matéria + oferta; a rolagem "renderiza" a página -->
+    <section class="sec hero" id="hero" data-tone="dark" style="--len:1">
+      <div class="pin">
+        <div class="hero__glow" aria-hidden="true"></div>
+        <div class="hero__center">
+          <div class="hero__logo">
+            <img class="logo" src="/brand/fex-logo.png" alt="Faculdade FEX Educação" width="1156" height="216">
+            <span class="logo-sweep" aria-hidden="true"></span>
+            <span class="hero__ring" aria-hidden="true"></span>
+            <span class="hero__open" aria-hidden="true"></span>
+          </div>
+          <div class="hero__copy">
+          <h1 class="hero__title display"></h1>
+          <p class="hero__sub"></p>
+          <p class="hero__lede"></p>
+          <div class="hero__actions">
+            <a class="btn btn--solid" href="#conversao"><span class="roll" data-roll>Quero conhecer a capacitação</span><i class="arrow"></i></a>
+          </div>
+          </div>
+        </div>
+        <div class="hero__cue"><span class="cue-line"><i></i></span><span class="cue-label">Role para saber mais</span></div>
+      </div>
+    </section>
+
+    <!-- 02 · A MULETA -->
+    <section class="sec muleta" id="tese" data-tone="cream" style="--len:3.4">
+      <div class="pin">
+        <p class="muleta__cap kicker">É assim que muita gente ainda trabalha.</p>
+        <div class="muleta__scene" aria-hidden="true"></div>
+        <h2 class="muleta__big display"></h2>
+        <p class="muleta__turn"><strong></strong><span></span></p>
+      </div>
+    </section>
+
+    <!-- 02b · A TESE -->
+    <section class="sec punch" data-tone="cream">
+      <div class="wrap">
+        <p class="kicker reveal">A tese</p>
+        <h2 class="display punch__title" data-split data-punch></h2>
+        <p class="punch__body lede reveal"></p>
+      </div>
+    </section>
+
+    <!-- 03 · O CENÁRIO -->
+    <section class="sec scenario" id="cenario" data-tone="white">
+      <div class="wrap">
+        <p class="kicker reveal">O cenário</p>
+        <h2 class="display scenario__title" data-split data-scenario></h2>
+        <div class="stats"></div>
+        <p class="scenario__closer reveal"></p>
+      </div>
+    </section>
+
+    <!-- 04 · FEX — fluxo de energia acende as fotos e as palavras -->
+    <section class="sec fexw" id="fex" data-tone="black" style="--len:3">
+      <div class="pin">
+        <p class="fexw__kick kicker">Faculdade FEX Educação</p>
+        <svg class="fexw__flow" aria-hidden="true">
+          <path class="flow-base"/><path class="flow-lit"/><path class="flow-comet"/><circle class="flow-head" r="6"/>
+        </svg>
+        <div class="fexw__nodes"></div>
+        <div class="fexw__final">
+          <span class="fexw__burst" aria-hidden="true"></span>
+          <h2 class="fexw__ia display">Inteligência <span class="accent">Artificial</span></h2>
+          <div class="fexw__about">
+            <p class="fexw__line1"></p>
+            <p class="fexw__line2"></p>
+            <ul class="fexw__facts"></ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 05 · VSL — play reel -->
+    <section class="sec reel" id="vsl" data-tone="cream" style="--len:2.4">
+      <div class="pin">
+        <div class="reel__head"><p class="kicker"></p><h2 class="display reel__title" data-split></h2></div>
+        <div class="reel__frame">
+          <div class="vsl" data-state="placeholder">
+            <div class="vsl__screen">
+              <div class="vsl__placeholder"><strong>Em breve</strong><span>O vídeo de apresentação da capacitação estará disponível aqui.</span></div>
+            </div>
+            <button class="vsl__big" type="button" aria-label="Reproduzir"></button>
+            <div class="vsl__controls" hidden>
+              <button class="vsl__play" type="button" aria-label="Reproduzir"></button>
+              <div class="vsl__bar" role="slider" aria-label="Progresso do vídeo" tabindex="0"><i class="vsl__fill"></i></div>
+              <span class="vsl__time">0:00 / 0:00</span>
+              <button class="vsl__mute" type="button" aria-label="Som"></button>
+              <button class="vsl__full" type="button" aria-label="Tela cheia"></button>
+            </div>
+          </div>
+          <span class="reel__cursor" aria-hidden="true">Play</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 06 · A JORNADA — ferramentas -->
+    <section class="sec voyage" id="ferramentas" data-tone="sea" style="--len:6">
+      <div class="pin">
+        <div class="voyage__head">
+          <p class="kicker">Ferramenta por ferramenta, tela por tela</p>
+          <h2 class="display voyage__title">Você navega. As <span class="hl">ferramentas</span> se revelam.</h2>
+        </div>
+        <div class="voyage__world" aria-hidden="false"></div>
+      </div>
+    </section>
+
+    <!-- 08 · GRADE -->
+    <section class="sec grade" id="grade" data-tone="black">
+      <div class="wrap">
+        <p class="kicker reveal">Estrutura curricular</p>
+        <h2 class="display" data-split>A grade completa, <span class="accent">do zero ao agente.</span></h2>
+        <div class="grade__nums"></div>
+        <div class="modules"></div>
+      </div>
+    </section>
+
+    <!-- 09 · TRILHAS -->
+    <section class="sec tracks" data-tone="cream">
+      <div class="wrap">
+        <p class="kicker reveal">Para quem é</p>
+        <h2 class="display" data-split>Dois públicos. Um curso. <span class="hl">Duas trilhas.</span></h2>
+        <div class="tracks__grid"></div>
+        <div class="split reveal"><div class="split__bar"><i></i></div><p><strong>~90/10.</strong> Fundamento, prompt, ferramenta e governança são comuns. Os 10% finais mudam completamente conforme a sua realidade.</p></div>
+      </div>
+    </section>
+
+    <!-- 10 · ATUALIZAÇÃO -->
+    <section class="sec update" id="atualizacao" data-tone="black">
+      <div class="ticker" aria-hidden="true"><div class="ticker__track"></div></div>
+      <div class="wrap">
+        <p class="kicker reveal"></p>
+        <h2 class="display update__title" data-split></h2>
+        <p class="lede reveal update__lede"></p>
+        <div class="update__grid"></div>
+      </div>
+    </section>
+
+    <!-- 11 · DIFERENCIAIS + CERTIFICADO + FORMATO -->
+    <section class="sec why" data-tone="cream">
+      <div class="wrap">
+        <p class="kicker reveal">Nossos diferenciais</p>
+        <h2 class="display" data-split>Por que este curso <span class="hl">vence os outros</span>.</h2>
+        <div class="certz">
+          <div class="certz__drop" data-io>
+            <div class="cert-fall"><div class="cert" data-tilt></div></div>
+            <span class="cert-shadow" aria-hidden="true"></span>
+          </div>
+          <div class="certz__copy reveal">
+            <p class="kicker"></p>
+            <h3 class="certz__title"></h3>
+            <p class="certz__text"></p>
+          </div>
+        </div>
+        <div class="why__grid"></div>
+        <dl class="format reveal"></dl>
+      </div>
+    </section>
+
+    <!-- 12 · CONVERSÃO -->
+    <section class="sec final" id="conversao" data-tone="dark">
+      <div class="wrap final__wrap">
+        <img class="final__logo reveal" src="/brand/fex-logo.png" alt="Faculdade FEX Educação" width="1156" height="216">
+        <h2 class="display final__title" data-split data-decode>Torne-se um especialista em <span class="accent">inteligência artificial.</span></h2>
+        <p class="lede reveal final__closer"></p>
+        <span class="final__halo reveal"><a class="btn btn--solid btn--xl final__cta" href="#conversao" data-magnet><span class="roll" data-roll>Quero conhecer a capacitação</span><i class="arrow"></i></a></span>
+        <p class="final__note reveal">Curso livre de capacitação profissional · 100% online · certificado de conclusão emitido pela Faculdade FEX Educação.</p>
+      </div>
+      <footer class="foot">
+        <img src="/brand/fex-logo.png" alt="Faculdade FEX Educação" width="1156" height="216">
+        <p class="foot__inst"></p>
+        <a class="foot__top" href="#hero">Voltar ao início ↑</a>
+      </footer>
+    </section>
+  </main>
+</body>
+</html>
