@@ -14,7 +14,7 @@ const INTRO_END = 3.7;
 // One scroll gesture (not a long scroll): the copy lifts, the mark explodes
 // into a pixel grid and the page "renders" — a green front turns every cell
 // cream (see fx/scan.js) — then the page lands on the next chapter.
-export function createHero({ el, matter, pointer, device, dust, scan, next }) {
+export function createHero({ el, matter, pointer, device, dust, scan, next, mobile }) {
   const logoImg = el.querySelector('.logo'), sweepEl = el.querySelector('.logo-sweep'), logoWrap = el.querySelector('.hero__logo');
   const ring = el.querySelector('.hero__ring'), glow = el.querySelector('.hero__glow'), open = el.querySelector('.hero__open');
   const title = el.querySelector('.hero__title'), sub = el.querySelector('.hero__sub'), lede = el.querySelector('.hero__lede');
@@ -40,8 +40,8 @@ export function createHero({ el, matter, pointer, device, dust, scan, next }) {
   // plays it backwards. Touch screens never fight the finger: there the
   // transition simply follows a short, native scroll (inertia included). ———
   const AUTO = 1.7;
-  const AUTO_MODE = !device.coarse;
-  if (!AUTO_MODE) el.style.setProperty('--len', '1.8');
+  const AUTO_MODE = !device.coarse && !mobile;
+  if (!AUTO_MODE && !mobile) el.style.setProperty('--len', '1.8');   // large touch screens: short native scroll
   const auto = { ap: 0, dir: 0, lockUntil: 0, touchY: null };
   const busy = () => auto.dir !== 0 || performance.now() < auto.lockUntil;
   const nearTop = () => window.scrollY < 40;
@@ -76,7 +76,12 @@ export function createHero({ el, matter, pointer, device, dust, scan, next }) {
 
   function update(dt, _p, W, H) {
     // advance the hand-over; arrivals by link or scrollbar settle to match
-    if (!AUTO_MODE) { /* touch: progress comes straight from the scroll */ }
+    if (mobile) {
+      // phones: one screen; the first swipe plays the hand-over on its own (no lock),
+      // returning to the very top plays it back
+      const target = window.scrollY > 24 ? 1 : 0;
+      auto.ap = clamp(auto.ap + Math.sign(target - auto.ap) * (dt / 1.3));
+    } else if (!AUTO_MODE) { /* large touch screens: progress comes straight from the scroll */ }
     else if (auto.dir) {
       auto.ap = clamp(auto.ap + (auto.dir * dt) / AUTO);
       if (auto.dir > 0 && auto.ap >= 1) { auto.dir = 0; window.scrollTo(0, next()); auto.lockUntil = performance.now() + 550; }
@@ -86,7 +91,7 @@ export function createHero({ el, matter, pointer, device, dust, scan, next }) {
       if (y >= next() - 4) auto.ap = 1;
       else if (y >= 4 || auto.ap >= 1) go(auto.ap >= 1 ? -1 : 1);
     }
-    const p = AUTO_MODE ? auto.ap : _p;
+    const p = AUTO_MODE || mobile ? auto.ap : _p;
     st.clock += dt * st.ts;
     const scrolled = auto.dir > 0 || window.scrollY > 4;
     if (st.ready && st.ignite === null && (st.clock > st.readyAt + 0.25 || scrolled)) st.ignite = st.clock;

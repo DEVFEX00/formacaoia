@@ -344,3 +344,27 @@ img.tool__ico { background: #fff; border: 1px solid rgba(11, 11, 10, 0.08); padd
 /* no WebGL / no JS fallbacks */
 .no-webgl .fx { display: none; }
 .no-webgl .js .logo, :root:not(.js) .logo { clip-path: none; }
+
+/* ——— PHONES (html.m) — a straight page: no sticky scenes, each scene is one
+   screen that plays by itself; the VSL is a plain player; the voyage is a
+   header scene + a vertical list. Desktop never gets the .m class. ——— */
+.m .sec[style*='--len'] { height: auto; }
+.m .pin { position: relative; height: 100svh; }
+.m .reel .pin { height: auto; overflow: visible; padding: 96px var(--gutter) 64px; }
+.m .reel__head { position: static; margin-bottom: 24px; opacity: 1 !important; transform: none !important; }
+.m .reel__frame { position: relative; inset: auto; aspect-ratio: 16 / 9; clip-path: none !important; border-radius: 18px; overflow: hidden; box-shadow: 0 0 0 2px var(--g), 0 24px 60px rgba(11, 30, 20, 0.25); }
+.m .reel__edge, .m .reel__cursor { display: none; }
+.m .vsl video { object-fit: contain; background: #000; }
+.m .voyage .pin { height: auto; overflow: visible; }
+.m .voyage__head { position: relative; top: auto; left: auto; right: auto; padding: 96px var(--gutter) 20px; opacity: 1 !important; transform: none !important; }
+.m .voyage__world { position: relative; inset: auto; height: 46svh; overflow: hidden; }
+.m .voyage .sea { height: 22svh; }
+.m .voyage .far { bottom: 21svh; }
+.m .voyage .hills { bottom: 21svh; }
+.m .boat-wrap { left: 50%; margin-left: -31vw; bottom: calc(13svh - 7.2vw); }
+.m .vtrack { position: static; transform: none !important; display: grid; gap: 16px; padding: 28px var(--gutter) 72px; }
+.m .stop { width: auto; margin: 0; --k: 1 !important; --turn: 0deg !important; }
+.m .stop__card { width: 100%; transform: none; opacity: 1; margin: 0; }
+.m .stop__isle { display: none; }
+.m .stop--end { margin: 12px 0 0; }
+.m .cue-label { white-space: nowrap; }

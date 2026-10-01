@@ -9,7 +9,7 @@ const S = stylers();
 // scroll until it fills the screen; a "Play" label follows the cursor over it.
 // Pressing play opens it fully at once (and scrolls to that point), so the
 // video is never watched through the small window.
-export function createReel({ el, bus, pointer, device }) {
+export function createReel({ el, bus, pointer, device, mobile }) {
   const head = el.querySelector('.reel__head'), frame = el.querySelector('.reel__frame'), vslEl = el.querySelector('.vsl'), label = el.querySelector('.reel__cursor');
   el.querySelector('.reel__head .kicker').textContent = vsl.kicker;
   const title = el.querySelector('.reel__title'); title.textContent = vsl.title; splitWords(title);
@@ -18,6 +18,7 @@ export function createReel({ el, bus, pointer, device }) {
   const video = vslEl.querySelector('video');
   if (video) {
     video.addEventListener('play', () => {
+      if (mobile) return;   // phones: plain 16:9 player, nothing to open
       st.force = true; st.guard = performance.now() + 1600;
       const top = el.getBoundingClientRect().top + window.scrollY, open = top + 0.64 * (el.offsetHeight - window.innerHeight);
       if (window.scrollY < open - 4) window.scrollTo({ top: open, behavior: 'smooth' });
@@ -29,6 +30,13 @@ export function createReel({ el, bus, pointer, device }) {
 
   function update(dt, p, W, H) {
     player.warm?.();   // the section is near: start buffering now, not on click
+    if (mobile) {
+      // phones: a plain 16:9 player under the title; pause only once it leaves the screen
+      title.classList.add('in');
+      const r = frame.getBoundingClientRect();
+      if (r.bottom < 0 || r.top > H) player.pause();
+      return;
+    }
     title.classList.toggle('in', p > 0.001 || el.getBoundingClientRect().top < H * 0.6);
     st.og = damp(st.og, st.force ? 1 : 0, 5, dt);
     const g = Math.max(easeInOutCubic(seg(p, 0.08, 0.6)), easeInOutCubic(st.og));
@@ -55,6 +63,6 @@ export function createReel({ el, bus, pointer, device }) {
     update,
     sleep: () => { player.pause(); st.force = false; },
     // video open and playing: the page animations can rest (smoother playback)
-    get watching() { return !!player.playing && st.og > 0.98; },
+    get watching() { return !mobile && !!player.playing && st.og > 0.98; },
   };
 }

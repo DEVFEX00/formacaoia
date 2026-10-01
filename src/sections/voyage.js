@@ -1,4 +1,4 @@
-import { clamp, seg, damp, stylers } from '../engine/util.js';
+﻿import { clamp, seg, damp, stylers } from '../engine/util.js';
 import { buildVoyage } from '../illus/voyage.js';
 import { toolGroups } from '../content.js';
 
@@ -8,13 +8,22 @@ const S = stylers();
 // their own speed — far islands on the horizon, the tool islands, and buoys,
 // rocks and reeds that pass in front of the boat — and each island turns as
 // it goes by, as if seen from the side of the boat.
-export function createVoyage({ el }) {
+export function createVoyage({ el, mobile }) {
   const world = el.querySelector('.voyage__world');
   const v = buildVoyage(world, toolGroups);
   const head = el.querySelector('.voyage__head');
   const st = { x: 0, tilt: 0 };
+  // phones: the sailing scene becomes a header and the tool cards follow in a
+  // plain vertical list (no sideways track, no pinning)
+  if (mobile) world.after(v.track);
 
   function update(dt, p, W, H, t, weight, vel) {
+    if (mobile) {
+      // keep the sea alive: buoys/reeds and far islands drift past the boat
+      S(v.near)('transform', `translate3d(${(-((t * 34) % (W * 3))).toFixed(1)}px,0,0)`);
+      S(v.far)('transform', `translate3d(${(-((t * 8) % (W * 2))).toFixed(1)}px,0,0)`);
+      return;
+    }
     // travel until the closing line sits in the middle-right of the screen
     const end = v.stops[v.stops.length - 1];
     const travel = Math.max(0, end.offsetLeft + end.offsetWidth / 2 - W * (W < 700 ? 0.5 : 0.6));

@@ -30,6 +30,11 @@ if (!location.hash) window.scrollTo(0, 0);
 const device = detectDevice();
 const root = document.documentElement;
 if (device.reduced) root.classList.add('reduced');
+// PHONES: a straight, natural page. No pinned (sticky) scenes, no scroll-scrubbing:
+// each scene fits one screen and plays on its own when it comes into view.
+const MOBILE = device.coarse && Math.min(window.innerWidth, screen.width || 9999) < 900;
+if (MOBILE) root.classList.add('m');
+const TIMED = { tese: 6.5, fex: 6 };   // seconds each scene takes to play on phones
 const pointer = createPointer();
 const bus = createBus();
 
@@ -63,11 +68,11 @@ cards.scan();
 
 const byId = (id) => secs.find((s) => s.id === id);
 const ctl = {
-  hero: createHero({ el: byId('hero').el, matter: M, pointer, device, dust: D, scan: SC, next: () => byId('tese').top }),
+  hero: createHero({ el: byId('hero').el, matter: M, pointer, device, dust: D, scan: SC, next: () => byId('tese').top, mobile: MOBILE }),
   tese: createMuleta({ el: byId('tese').el, dust: D }),
   fex: createFexw({ el: byId('fex').el }),
-  vsl: createReel({ el: byId('vsl').el, bus, pointer, device }),
-  ferramentas: createVoyage({ el: byId('ferramentas').el }),
+  vsl: createReel({ el: byId('vsl').el, bus, pointer, device, mobile: MOBILE }),
+  ferramentas: createVoyage({ el: byId('ferramentas').el, mobile: MOBILE }),
 };
 const prepared = new Set();
 
@@ -83,6 +88,8 @@ function size() {
   W = window.innerWidth; H = window.innerHeight;
   const dpr = Math.min(window.devicePixelRatio || 1, device.dprCap);
   if (stage) { stage.resize(W, H, dpr); dust.setDpr(dpr); matter.setDpr(dpr); }
+  // phones: the canvas must match the visible height exactly (Safari toolbars), or it stretches
+  if (MOBILE) canvas.style.height = H + 'px';
   secs.forEach((s) => { const r = s.el.getBoundingClientRect(); s.top = r.top + window.scrollY; s.h = s.el.offsetHeight; });
 }
 size();
@@ -129,7 +136,7 @@ function step(rawDt) {
   // page colour follows the section, eased in the loop (in sync with scroll)
   const heroFull = cur.id === 'hero' && ctl.hero.full;
   const tc = hexRgb(TONES[cur.id === 'hero' && !heroFull ? 'dark' : tone]);
-  for (let k = 0; k < 3; k++) bg[k] = heroFull ? tc[k] : damp(bg[k], tc[k], 4.5, dt);
+  for (let k = 0; k < 3; k++) bg[k] = heroFull ? tc[k] : damp(bg[k], tc[k], MOBILE ? 9 : 4.5, dt);
   document.body.style.backgroundColor = `rgb(${bg[0] | 0},${bg[1] | 0},${bg[2] | 0})`;
 
   // pinned scenes
@@ -141,7 +148,13 @@ function step(rawDt) {
     if (!near || !ready) { if (s.awake) { c.sleep?.(); s.awake = false; } if (s.id === 'hero') SC.set(0, 0, 0, 0, W, H); continue; }
     if (c.prepare && !prepared.has(s.id)) { if (c.prepare()) prepared.add(s.id); }
     const len = Math.max(1, s.h - H);
-    const p = clamp((y - s.top) / len);
+    let p = clamp((y - s.top) / len);
+    if (MOBILE && TIMED[s.id]) {
+      // phones: the scene plays by itself while it is (mostly) on screen
+      const r = s.el.getBoundingClientRect();
+      if (r.top < H * 0.4 && r.bottom > H * 0.6) s.tp = Math.min(1, (s.tp || 0) + dt / TIMED[s.id]);
+      p = s.tp || 0;
+    }
     const weight = clamp(1 - Math.abs((y + H / 2) - (s.top + s.h / 2)) / (s.h / 2 + H / 2)) ;
     c.update(dt, p, W, H, time, weight, vel);
     s.awake = true;

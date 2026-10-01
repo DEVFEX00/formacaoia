@@ -41,7 +41,13 @@ export function splitWords(el) {
 const GLYPHS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#%&@*+=';
 export function scramble(root, dur = 900) {
   if (document.documentElement.classList.contains('reduced')) return;
-  const items = [...root.querySelectorAll('.word__in')].map((el) => ({ el, txt: el.textContent }));
+  // the real text is stored once: a second run (or a paused tab) can never
+  // mistake half-scrambled glyphs for the final words
+  const items = [...root.querySelectorAll('.word__in')].map((el) => {
+    if (el.dataset.txt == null) el.dataset.txt = el.textContent;
+    return { el, txt: el.dataset.txt };
+  });
+  setTimeout(() => items.forEach((it) => { it.el.textContent = it.txt; }), dur + 400);   // always end on the real text
   const total = items.reduce((s, it) => s + it.txt.length, 0) || 1;
   let k = 0;
   items.forEach((it) => { it.at = [...it.txt].map(() => ((k++ / total) * 0.6 + Math.random() * 0.3) * dur); });
