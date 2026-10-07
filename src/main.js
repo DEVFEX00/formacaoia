@@ -11,6 +11,7 @@ import { createTrail } from './fx/trail.js';
 import { ROUTES } from './fx/routes.js';
 import { createCards } from './ui/cards.js';
 import { initSound, sound } from './ui/sound.js';
+import { initLead } from './ui/lead.js';
 import { initReveals } from './ui/reveal.js';
 import { fillContent } from './sections/content.js';
 import { createHero } from './sections/hero.js';
@@ -41,6 +42,7 @@ const bus = createBus();
 fillContent();
 initReveals();
 initSound();
+initLead();
 // the diploma lands → thud + chime
 document.querySelector('.certz__drop')?.addEventListener('revealed', () => setTimeout(() => sound.play('land'), 760));
 

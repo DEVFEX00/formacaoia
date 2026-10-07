@@ -110,8 +110,5 @@ export function fillContent() {
   // CONVERSÃO + rodapé
   $('.final__closer').textContent = cta.closer;
   $('.foot__inst').innerHTML = institution.lines.join('<br>');
-  document.querySelectorAll('a[href="#conversao"]').forEach((a) => {
-    a.href = cta.href;
-    if (cta.onClick) a.addEventListener('click', (e) => cta.onClick(e, a.className));
-  });
+  // the CTA buttons ([data-cta]) are wired by ui/lead.js (form pop-up → checkout)
 }

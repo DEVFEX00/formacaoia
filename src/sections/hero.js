@@ -54,6 +54,7 @@ export function createHero({ el, matter, pointer, device, dust, scan, next, mobi
     window.scrollTo(0, 0);
   }
   function intent(dy, e) {
+    if (document.documentElement.classList.contains('lead-open')) return;   // the form pop-up owns the scroll
     const stop = () => { if (e.cancelable) e.preventDefault(); };
     if (busy()) { if (window.scrollY < next() + 40) stop(); return; }
     if (dy > 0 && nearTop() && auto.ap < 1) { stop(); go(1); }

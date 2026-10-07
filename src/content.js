@@ -182,9 +182,23 @@ export const photos = {
   turma: { src: '/media/turma-celebracao.jpg', alt: 'Turma reunida ao final de um encontro' }, // NOTE: third-party badges visible
 };
 
+// Every "Quero conhecer…" button opens the lead form (ui/lead.js): the lead
+// goes to n8n (→ RD Station) and the visitor continues to the Hubla checkout.
 export const cta = {
   label: 'Quero conhecer a capacitação',
-  href: '#conversao',
+  checkout: 'https://pay.hub.la/MDTu58U0Z451O457Soul',
+  webhook: 'https://n8n.fexeducacao.com/webhook/form-extensao-pos-MY9tKgr31W2ZLxNB',
+  course: 'Capacitação Profissional em Inteligência Artificial',
+  source: 'site-capacitacao-ia',
+  form: {
+    kicker: 'Inscrição',
+    title: 'Falta pouco para você começar.',
+    text: 'Deixe seus dados e siga direto para a inscrição segura.',
+    button: 'Continuar para a inscrição',
+    sending: 'Abrindo a inscrição…',
+    consent: 'Aceito receber contato da Faculdade FEX Educação sobre a capacitação, de acordo com a LGPD.',
+    safe: 'Pagamento 100% seguro pela Hubla.',
+  },
   onClick: null, // (event, location) => track('cta_click', { location })
   closer: 'O custo de esperar mais um ano é maior do que o custo de aprender agora.',
 };
