@@ -35,7 +35,7 @@ if (device.reduced) root.classList.add('reduced');
 // each scene fits one screen and plays on its own when it comes into view.
 const MOBILE = device.coarse && Math.min(window.innerWidth, screen.width || 9999) < 900;
 if (MOBILE) root.classList.add('m');
-const TIMED = { tese: 6.5, fex: 6 };   // seconds each scene takes to play on phones
+const TIMED = { fex: 6 };   // seconds each scene takes to play on phones (the crutch scene is text-only there)
 const pointer = createPointer();
 const bus = createBus();
 
@@ -71,7 +71,7 @@ cards.scan();
 const byId = (id) => secs.find((s) => s.id === id);
 const ctl = {
   hero: createHero({ el: byId('hero').el, matter: M, pointer, device, dust: D, scan: SC, next: () => byId('tese').top, mobile: MOBILE }),
-  tese: createMuleta({ el: byId('tese').el, dust: D }),
+  tese: createMuleta({ el: byId('tese').el, dust: D, mobile: MOBILE }),
   fex: createFexw({ el: byId('fex').el }),
   vsl: createReel({ el: byId('vsl').el, bus, pointer, device, mobile: MOBILE }),
   ferramentas: createVoyage({ el: byId('ferramentas').el, mobile: MOBILE }),

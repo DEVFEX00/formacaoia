@@ -400,3 +400,12 @@ img.tool__ico { background: #fff; border: 1px solid rgba(11, 11, 10, 0.08); padd
   .lead__card { width: 100%; max-height: 92svh; border-radius: 24px 24px 0 0; padding: 30px 20px calc(22px + env(safe-area-inset-bottom)); transform: translateY(100%); }
   .lead.is-open .lead__card { transform: none; }
 }
+
+/* phones: the crutch chapter is text only (no scene, no animation) */
+.m .muleta .pin { height: auto; display: block; overflow: visible; padding: 16svh var(--gutter) 14svh; text-align: center; }
+.m .muleta__cap, .m .muleta__big, .m .muleta__turn { position: static; }
+.m .muleta__cap { margin-bottom: 22px; }
+.m .muleta__big { margin-bottom: 28px; }
+.m .muleta__cap, .m .muleta__turn { opacity: 0; transform: translateY(18px); transition: opacity 0.9s var(--ease), transform 0.9s var(--ease); }
+.m .muleta__turn { transition-delay: 0.6s; }
+.m .muleta.in .muleta__cap, .m .muleta.in .muleta__turn { opacity: 1; transform: none; }

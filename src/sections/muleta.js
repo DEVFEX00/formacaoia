@@ -1,4 +1,4 @@
-import { clamp, seg, lerp, easeInOutCubic, easeInCubic, easeOutCubic, stylers } from '../engine/util.js';
+﻿import { clamp, seg, lerp, easeInOutCubic, easeInCubic, easeOutCubic, stylers } from '../engine/util.js';
 import { buildMuleta, PIVOT } from '../illus/muleta.js';
 import { splitWords } from '../ui/reveal.js';
 import { thesis } from '../content.js';
@@ -9,8 +9,8 @@ const TIP = 1160;
 // 02 — A MULETA: the scene explains the idea before the words do.
 // The old desk → a giant crutch swings in → objects are knocked away one by
 // one as the tip actually reaches them → only then: the sentence.
-export function createMuleta({ el, dust }) {
-  const m = buildMuleta(el.querySelector('.muleta__scene'));
+export function createMuleta({ el, dust, mobile }) {
+  const m = mobile ? null : buildMuleta(el.querySelector('.muleta__scene'));
   const cap = el.querySelector('.muleta__cap');
   const big = el.querySelector('.muleta__big');
   const turn = el.querySelector('.muleta__turn');
@@ -20,6 +20,17 @@ export function createMuleta({ el, dust }) {
   turn.querySelector('strong').textContent = thesis.turn;
   turn.querySelector('span').textContent = ' ' + thesis.turn2;
   const hl = big.querySelector('.hl');
+  if (mobile) {
+    // phones: no crutch animation at all — just the message, revealed once on screen
+    el.querySelector('.muleta__scene').remove();
+    const io = new IntersectionObserver((es) => {
+      if (!es.some((e) => e.isIntersecting)) return;
+      el.classList.add('in'); big.classList.add('in'); hl.classList.add('in');
+      io.disconnect();
+    }, { threshold: 0.35 });
+    io.observe(el);
+    return { update() {} };
+  }
 
   const angAt = (p) => {
     let a = lerp(-78, -40, easeOutCubic(seg(p, 0.08, 0.24)));
