@@ -1,0 +1,5 @@
+node_modules/
+dist/
+iniciar-servidor.bat
+.DS_Store
+*.local
